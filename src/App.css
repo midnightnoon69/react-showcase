@@ -1,0 +1,84 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 0;
+  background: linear-gradient(90deg, #61dafb, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #aaa;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.clock {
+  font-size: 2.5rem;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  color: #61dafb;
+}
+
+.date {
+  margin: 0.5rem 0 0;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.3s;
+}
+
+.interactive:hover {
+  transform: scale(1.03);
+  border-color: rgba(97, 218, 251, 0.4);
+}
+
+.click-btn {
+  background: linear-gradient(135deg, #61dafb, #a78bfa);
+  border: none;
+  color: #0f0c29;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.encouragement {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: #a78bfa;
+}
+
+.footer {
+  color: #555;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
