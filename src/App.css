@@ -1,111 +1,391 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-header {
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  min-height: 100vh;
+body {
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.game {
+  display: flex;
+  height: 100vh;
+  background: #1a1a2e;
+  color: white;
+}
+
+/* Left panel - Cookie area */
+.left-panel {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-  padding: 2rem;
-  gap: 1rem;
+  background: radial-gradient(ellipse at center, #2a1f4e 0%, #1a1a2e 70%);
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .title {
-  font-size: 3rem;
-  margin: 0;
+  font-size: 2rem;
   background: linear-gradient(90deg, #f5a623, #f7d794);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3rem;
 }
 
 .cookie-count {
-  font-size: 1.8rem;
-  color: #f7d794;
-  margin: 0;
-  font-weight: 300;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: bold;
+  line-height: 1.1;
 }
 
-.cookie-area {
+.cookie-label {
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.cps {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.cookie-container {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  margin: 0.5rem 0;
 }
 
-.cookie {
+.cookie-shadow {
+  position: absolute;
+  width: 180px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.4), transparent);
+  bottom: 10px;
+  border-radius: 50%;
+}
+
+.big-cookie {
   font-size: 10rem;
-  transition: transform 0.1s ease;
-  filter: drop-shadow(0 0 20px rgba(245, 166, 35, 0.3));
+  transition: transform 0.08s ease;
+  filter: drop-shadow(0 0 30px rgba(245, 166, 35, 0.3));
+  z-index: 1;
+  animation: hover-cookie 3s ease-in-out infinite;
 }
 
-.cookie:active {
-  transform: scale(0.9);
+.big-cookie.rainbow {
+  animation: hover-cookie 3s ease-in-out infinite, rainbow-glow 0.3s linear infinite;
+}
+
+@keyframes hover-cookie {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes rainbow-glow {
+  0% { filter: drop-shadow(0 0 40px red); }
+  33% { filter: drop-shadow(0 0 40px lime); }
+  66% { filter: drop-shadow(0 0 40px cyan); }
+  100% { filter: drop-shadow(0 0 40px red); }
 }
 
 .floater {
   position: absolute;
-  color: #f5a623;
-  font-size: 1.4rem;
+  color: #fff;
+  font-size: 1.3rem;
   font-weight: bold;
   pointer-events: none;
-  animation: float-up 0.8s ease-out forwards;
+  z-index: 10;
+  text-shadow: 0 0 5px rgba(245, 166, 35, 0.8);
+  animation: float-up 0.7s ease-out forwards;
 }
 
 @keyframes float-up {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-80px);
-  }
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-90px) scale(1.3); }
 }
 
-.milestone {
+.particle {
+  position: absolute;
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 5;
+  animation: scatter 0.5s ease-out forwards;
+}
+
+@keyframes scatter {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+
+.stats {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.save-btns {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.save-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #aaa;
+  padding: 0.3rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.save-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+/* Right panel - Shop */
+.right-panel {
+  width: 380px;
+  background: #16213e;
+  border-left: 2px solid #0f3460;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shop-tabs {
+  display: flex;
+  border-bottom: 2px solid #0f3460;
+}
+
+.shop-tab {
+  flex: 1;
+  padding: 0.7rem;
+  background: #16213e;
+  border: none;
+  color: #888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.shop-tab.active {
   color: #f5a623;
-  font-size: 1.1rem;
-  margin: 0;
-  animation: pulse 1s ease-in-out infinite;
+  background: #1a2745;
 }
 
-@keyframes pulse {
+.badge {
+  background: #f5a623;
+  color: #1a1a2e;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-left: 0.3rem;
+}
+
+.shop-header {
+  padding: 0.6rem 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f5a623;
+  background: #1a2745;
+  border-bottom: 1px solid #0f3460;
+}
+
+.shop-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #0f3460 transparent;
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: all 0.15s;
+  gap: 0.7rem;
+}
+
+.shop-item.affordable {
+  background: rgba(245, 166, 35, 0.05);
+}
+
+.shop-item.affordable:hover {
+  background: rgba(245, 166, 35, 0.15);
+}
+
+.shop-item.locked {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.shop-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.shop-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.shop-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+}
+
+.shop-cost {
+  font-size: 0.8rem;
+  color: #f5a623;
+}
+
+.shop-desc {
+  font-size: 0.7rem;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shop-count {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #444;
+  min-width: 35px;
+  text-align: right;
+}
+
+.no-upgrades {
+  padding: 2rem 1rem;
+  color: #555;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Golden cookie */
+.golden-cookie {
+  position: fixed;
+  font-size: 3.5rem;
+  cursor: pointer;
+  z-index: 100;
+  animation: golden-pulse 0.6s ease-in-out infinite, golden-spin 4s linear infinite;
+  filter: drop-shadow(0 0 15px gold);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes golden-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes golden-spin {
+  0% { filter: drop-shadow(0 0 15px gold); }
+  50% { filter: drop-shadow(0 0 30px gold); }
+  100% { filter: drop-shadow(0 0 15px gold); }
+}
+
+/* Golden effect banner */
+.golden-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  color: gold;
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 50;
+  animation: banner-flash 1s ease-in-out infinite;
+}
+
+@keyframes banner-flash {
   0%, 100% { opacity: 0.7; }
   50% { opacity: 1; }
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1.5rem 2.5rem;
-  backdrop-filter: blur(10px);
+/* Scrollbar */
+.shop-list::-webkit-scrollbar {
+  width: 6px;
 }
 
-.clock {
-  font-size: 2rem;
-  font-weight: 300;
-  font-variant-numeric: tabular-nums;
-  color: #61dafb;
+.shop-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.date {
-  margin: 0.5rem 0 0;
-  color: #aaa;
-  font-size: 0.95rem;
+.shop-list::-webkit-scrollbar-thumb {
+  background: #0f3460;
+  border-radius: 3px;
 }
 
-.footer {
-  color: #555;
-  font-size: 0.8rem;
-  margin-top: 1rem;
+/* Mobile responsive */
+@media (max-width: 700px) {
+  .game {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    flex: none;
+    height: 55vh;
+    padding: 0.5rem;
+  }
+
+  .right-panel {
+    width: 100%;
+    flex: 1;
+    border-left: none;
+    border-top: 2px solid #0f3460;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .cookie-count {
+    font-size: 1.8rem;
+  }
+
+  .cookie-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .big-cookie {
+    font-size: 7rem;
+  }
+
+  .stats {
+    font-size: 0.65rem;
+  }
 }
